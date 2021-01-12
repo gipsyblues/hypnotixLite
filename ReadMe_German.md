@@ -1,5 +1,7 @@
 ### Voraussetzungen
 
+![screnshot](https://github.com/Axel-Erfurt/hypnotixLite/blob/main/screenshot.png)
+
 - python3 >= 3.6
 - libmpv1
 
