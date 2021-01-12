@@ -42,15 +42,16 @@ or
 ### Shortcuts
 
 - 1 to 9 -> load list 1 to 9
-- F -> toggle Fullscreen
+- f -> toggle Fullscreen
 - Escape -> leave Fullscreen
-- S -> toggle Sidebar
+- s -> toggle Sidebar
 - wheel -> Zoom in/out
-- Q -> Quit
+- q -> Quit
 - Key Up -> next Channel
 - Key Down -> previous Channel
 - Key Plus -> more Volume
 - Key Minus -> less Volume
+- i -> import m3u
 
 ### m3u to mychannels
 
