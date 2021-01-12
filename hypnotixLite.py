@@ -51,7 +51,7 @@ class MyWindow(Gtk.Window):
                 self.makeList(self.list_3)
                 self.sidebar.show()
         if event.keyval == Gdk.KEY_4:
-            if fpath.isfile("mychannel4.txt"):
+            if fpath.isfile("mychannels4.txt"):
                 self.makeList(self.list_4)
                 self.sidebar.show()
         if event.keyval == Gdk.KEY_5:
