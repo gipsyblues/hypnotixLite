@@ -45,7 +45,7 @@ or
 - F -> toggle Fullscreen
 - Escape -> leave Fullscreen
 - S -> toggle Sidebar
-- wheel -> Zoo in/out
+- wheel -> Zoom in/out
 - Q -> Quit
 - Key Up -> next Channel
 - Key Down -> previous Channel
