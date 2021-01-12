@@ -1,6 +1,8 @@
 # hypnotixLite
 Lite Version of hypnotix
 
+![screnshot](https://github.com/Axel-Erfurt/hypnotixLite/blob/main/screenshot.png)
+
 ### Requirements
 
 - python3 >= 3.6
