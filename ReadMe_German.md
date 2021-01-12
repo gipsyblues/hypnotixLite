@@ -49,6 +49,6 @@ oder
 
 ### Hinweis
 
-- mychannels2.txt enthält die Pluto TV Kanäle
+- mychannels2.txt enthält Pluto TV Kanäle
 - beim Abspielen wird die Seitenleiste automatisch ausgeblendet
 - Verschieben des Fensters mit ALT + linke Maustaste
