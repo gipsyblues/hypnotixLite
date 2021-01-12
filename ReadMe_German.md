@@ -48,6 +48,7 @@ oder
 - Pfeil nach oben -> vorheriger Kanal in Liste
 - Plus -> lauter
 - Minus -> leiser
+- i -> Import m3u
 
 ### Hinweis
 
