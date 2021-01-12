@@ -54,3 +54,11 @@ oder
 - mychannels2.txt enthält Pluto TV Kanäle
 - beim Abspielen wird die Seitenleiste automatisch ausgeblendet
 - Verschieben des Fensters mit ALT + linke Maustaste
+
+### m3u to mychannels
+
+```python3 m3u_to_channels.py infile.m3u outfile.txt```
+
+- Beispiel
+
+```python3 m3u_to_channels.py CA01_CANADA.m3u mychannels4.txt```
