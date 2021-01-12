@@ -94,11 +94,13 @@ class MyWindow(Gtk.Window):
         if event.keyval == Gdk.KEY_plus:
             if self.mpv.volume < 205:
                 self.mpv.volume += 5.0
+                self.volume = self.mpv.volume
             print(f"Volume: {self.mpv.volume}")
             # volume down
         if event.keyval == Gdk.KEY_minus: 
             if self.mpv.volume >= 5:
                 self.mpv.volume -= 5.0
+                self.volume = self.mpv.volume
             print(f"Volume: {self.mpv.volume}")
             # toggle sidebar
         if event.keyval == Gdk.KEY_s:
@@ -146,7 +148,7 @@ class MyWindow(Gtk.Window):
         if self.mpv != None:
             self.mpv.stop()
 
-        self.mpv = mpv.MPV(volume="90", input_cursor=False, hwdec=False, 
+        self.mpv = mpv.MPV(volume=str(self.volume), input_cursor=False, hwdec=False, 
                                 input_default_bindings=False, border=False, 
                                 input_vo_keyboard=False, osc=False, ontop=True, wid=str(self.mpv_player.get_window().get_xid()))
 
@@ -154,7 +156,7 @@ class MyWindow(Gtk.Window):
         if self.mpv != None:
             self.mpv.stop()
 
-        self.mpv = mpv.MPV(volume="90", input_cursor=True, hwdec=False, 
+        self.mpv = mpv.MPV(volume=str(self.volume), input_cursor=True, hwdec=False, 
                                 input_default_bindings=False, border=False, 
                                 input_vo_keyboard=False, osc=True, ontop=True, wid=str(self.mpv_player.get_window().get_xid()))
                                 
@@ -174,16 +176,15 @@ class MyWindow(Gtk.Window):
     def play_async(self, channelname, channelurl):
         ext = [".mkv", ".mp4", ".mpg", ".mpeg", ".flv", ".wmv"]
         url_ext = f'.{channelurl.rpartition(".")[2]}'
-        print(url_ext)
         print (f"Sender: {channelname}\nurl: {channelurl}")
         if channelname != None and channelurl != None:
-            #if channelurl.endswith(".mkv"):
             if url_ext in ext:
                 self.reinit_mpv_movies()
             else:
                 self.reinit_mpv()
             self.mpv.play(channelurl)
             self.mpv.wait_until_playing()
+            self.mpv.show_text(channelname, duration="3000", level=None)
             
     def makeList(self, mlist):
         for child in self.channelbox.get_children():
@@ -219,6 +220,7 @@ class MyWindow(Gtk.Window):
         self.list_9 = "mychannels9.txt"
         self.urlList = []
         self.nameList = []
+        self.volume = 90
         self.mpv = None
         self.fullscreen = False
         self.id = 0
@@ -263,3 +265,4 @@ class MyWindow(Gtk.Window):
 if __name__ == "__main__":
     w = MyWindow()
     w.main(sys.argv)
+        
