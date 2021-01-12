@@ -14,6 +14,8 @@ else:
     for line in mlist:
         if line.startswith("#EXTINF"):
             ch = line.partition('tvg-name="')[2].partition('" ')[0]
+            if ch == "":
+                ch = line.partition(',')[2]
             chList.append(ch)
         if line.startswith("http"):
             urlList.append(line)
