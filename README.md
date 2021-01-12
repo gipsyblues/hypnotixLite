@@ -51,3 +51,11 @@ or
 - Key Down -> previous Channel
 - Key Plus -> more Volume
 - Key Minus -> less Volume
+
+### m3u to mychannels
+
+```python3 m3u_to_channels.py infile.m3u outfile.txt```
+
+- example
+
+```python3 m3u_to_channels.py CA01_CANADA.m3u mychannels4.txt```
