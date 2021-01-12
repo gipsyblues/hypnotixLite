@@ -8,13 +8,15 @@ import sys
 import warnings
 import mpv
 import threading
-from os import path as fpath
+from os import path as fpath, linesep
 
 warnings.filterwarnings("ignore")
+
         
 class MyWindow(Gtk.Window):
     def __init__(self, parent=None):
         super(MyWindow, self).__init__()
+    
         
     def my_zoom(self, widget, event):
         if not self.sidebar.is_visible():                  
@@ -27,6 +29,70 @@ class MyWindow(Gtk.Window):
             elif direction > 0:
                 if not w < 260:
                     self.win.resize(w - 30, (w - 30) / 1.777777778)
+                    
+    def msgbox(self, message):
+        dialog = Gtk.Dialog(title="Message", flags=0)
+        dialog.add_buttons(Gtk.STOCK_OK, Gtk.ResponseType.OK)
+
+        dialog.set_default_size(250, 200)
+
+        label = Gtk.Label()
+        label.set_text(message)
+        box = dialog.get_content_area()
+        box.add(label)       
+        dialog.show_all()
+        response = dialog.run()
+
+        if response == Gtk.ResponseType.OK:
+            print("playlist imported")
+
+        dialog.destroy()
+                    
+    ####### import playlist #######
+    def import_playlist(self):
+        dlg = Gtk.FileChooserDialog(title="Please choose a file", parent=None, action = 0)
+        dlg.add_buttons("Cancel", Gtk.ResponseType.CANCEL,
+                     "Open", Gtk.ResponseType.OK)
+                     
+        filter = Gtk.FileFilter()
+        filter.set_name("Playlists")
+        filter.add_pattern("*.m3u")
+        dlg.add_filter(filter)
+        response = dlg.run()
+
+        if response == Gtk.ResponseType.OK:
+             infile = (dlg.get_filename())
+             print("FileName:", infile)
+             dlg.destroy()
+             self.parse_playlist(infile)
+             self.msgbox("Saved as mychannels10.txt\n\nShortcut 0")
+        else:
+            dlg.destroy()
+        
+        
+    def parse_playlist(self, infile):
+        t = open(infile, "r").read()
+        text = linesep.join([s for s in t.splitlines() if s])
+        chList = []
+        urlList = []
+        mlist = text.splitlines()
+
+        for line in mlist:
+            if line.startswith("#EXTINF"):
+                ch = line.partition('tvg-name="')[2].partition('" ')[0]
+                if ch == "":
+                    ch = line.partition(',')[2]
+                chList.append(ch)
+            if line.startswith("http"):
+                urlList.append(line)
+        outfile = "mychannels10.txt"
+        with open(outfile, "w") as f:
+            for x in range(len(chList)):
+                if not "***" in chList[x]:
+                    f.write(f"{chList[x].replace('Pluto ', '').replace(' Made In Germany', '')},{urlList[x]}\n")
+                    
+        f.close()
+        self.makeList(outfile)
 
     def on_button_press_event(self, widget, button):
         if (button.button == 1): ## left mouse button
@@ -37,6 +103,8 @@ class MyWindow(Gtk.Window):
     def on_key_press_event(self, widget, event):
         if event.keyval == Gdk.KEY_q:
             Gtk.main_quit()
+        if event.keyval == Gdk.KEY_i:            
+            self.import_playlist()
         ### lists
         if event.keyval == Gdk.KEY_1:
             if fpath.isfile("mychannels1.txt"):
@@ -74,22 +142,10 @@ class MyWindow(Gtk.Window):
             if fpath.isfile("mychannels9.txt"):
                 self.makeList(self.list_9)
                 self.sidebar.show()
-            # next
-        if event.keyval == Gdk.KEY_Up:
-            child = self.channelbox.get_child_at_index(self.id + 1)
-            self.channelbox.select_child(child)
-            if self.sidebar.is_visible():
-                self.toggleSideBar()
-            self.id += 1
-            self.play_async(self.nameList[self.id], self.urlList[self.id])
-            # previous
-        if event.keyval == Gdk.KEY_Down:
-            child = self.channelbox.get_child_at_index(self.id - 1)
-            self.channelbox.select_child(child)
-            if self.sidebar.is_visible():
-                self.toggleSideBar()
-            self.id -= 1
-            self.play_async(self.nameList[self.id], self.urlList[self.id]) 
+        if event.keyval == Gdk.KEY_0:
+            if fpath.isfile("mychannels9.txt"):
+                self.makeList(self.list_10)
+                self.sidebar.show()
             # volume up
         if event.keyval == Gdk.KEY_plus:
             if self.mpv.volume < 205:
@@ -108,6 +164,23 @@ class MyWindow(Gtk.Window):
         if event.keyval == Gdk.KEY_f or \
              (self.fullscreen and event.keyval == Gdk.KEY_Escape):
             self.toggle_fullscreen()
+            # next
+        if self.is_playing:
+            if event.keyval == Gdk.KEY_Up:
+                child = self.channelbox.get_child_at_index(self.id + 1)
+                self.channelbox.select_child(child)
+                if self.sidebar.is_visible():
+                    self.toggleSideBar()
+                self.id += 1
+                self.play_async(self.nameList[self.id], self.urlList[self.id])
+                # previous
+            if event.keyval == Gdk.KEY_Down:
+                child = self.channelbox.get_child_at_index(self.id - 1)
+                self.channelbox.select_child(child)
+                if self.sidebar.is_visible():
+                    self.toggleSideBar()
+                self.id -= 1
+                self.play_async(self.nameList[self.id], self.urlList[self.id]) 
             
     def toggle_fullscreen(self):
         self.fullscreen = (not self.fullscreen)
@@ -184,6 +257,7 @@ class MyWindow(Gtk.Window):
                 self.reinit_mpv()
             self.mpv.play(channelurl)
             self.mpv.wait_until_playing()
+            self.is_playing = True
             self.mpv.show_text(channelname, duration="3000", level=None)
             
     def makeList(self, mlist):
@@ -218,9 +292,11 @@ class MyWindow(Gtk.Window):
         self.list_7 = "mychannels7.txt"
         self.list_8 = "mychannels8.txt"
         self.list_9 = "mychannels9.txt"
+        self.list_10 = "mychannels10.txt"
         self.urlList = []
         self.nameList = []
         self.volume = 90
+        self.is_playing = False
         self.mpv = None
         self.fullscreen = False
         self.id = 0
@@ -265,4 +341,4 @@ class MyWindow(Gtk.Window):
 if __name__ == "__main__":
     w = MyWindow()
     w.main(sys.argv)
-        
+                            
