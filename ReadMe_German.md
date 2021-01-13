@@ -13,7 +13,7 @@ entpacke es irgendwohin
 
 ### Start
 
-```cd /path/to/hypnotixLite```
+```cd /Pfad/zu/hypnotixLiteOrdner```
 
 ```python3 ./hypnotixLite.py```
 
