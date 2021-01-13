@@ -1,6 +1,6 @@
 ### Voraussetzungen
 
-![screnshot](https://github.com/Axel-Erfurt/hypnotixLite/blob/main/screenshot.png)
+![screnshot](https://github.com/Axel-Erfurt/hypnotixLite/blob/main/screenshot2.png)
 
 - python3 >= 3.6
 - libmpv1
