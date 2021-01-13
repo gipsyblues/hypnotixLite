@@ -1,6 +1,8 @@
-### Voraussetzungen
+## Hypnotix Lite
 
 ![screnshot](https://github.com/Axel-Erfurt/hypnotixLite/blob/main/screenshot2.png)
+
+### Voraussetzungen
 
 - python3 >= 3.6
 - libmpv1
