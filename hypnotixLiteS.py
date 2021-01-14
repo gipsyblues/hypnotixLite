@@ -126,82 +126,83 @@ d -> hide/show titlebar
                 Gtk.main_quit()
             if event.keyval == Gdk.KEY_i:            
                 self.import_playlist()
-            ### lists
-            if event.keyval == Gdk.KEY_1:
-                if fpath.isfile(self.file_list[0]):
-                    self.makeList(self.file_list[0])
-                    self.vbox.show()
-            if event.keyval == Gdk.KEY_2:
-                if fpath.isfile(self.file_list[1]):
-                    self.makeList(self.file_list[1])
-                    self.vbox.show()
-            if event.keyval == Gdk.KEY_3:
-                if fpath.isfile(self.file_list[2]):
-                    self.makeList(self.file_list[2])
-                    self.vbox.show()
-            if event.keyval == Gdk.KEY_4:
-                if fpath.isfile(self.file_list[3]):
-                    self.makeList(self.file_list[3])
-                    self.vbox.show()
-            if event.keyval == Gdk.KEY_5:
-                if fpath.isfile(self.file_list[4]):
-                    self.makeList(self.file_list[4])
-                    self.vbox.show()
-            if event.keyval == Gdk.KEY_6:
-                if fpath.isfile(self.file_list[5]):
-                    self.makeList(self.file_list[5])
-                    self.vbox.show()
-            if event.keyval == Gdk.KEY_7:
-                if fpath.isfile(self.file_list[6]):
-                    self.makeList(self.file_list[6])
-                    self.vbox.show()
-            if event.keyval == Gdk.KEY_8:
-                if fpath.isfile(self.file_list[7]):
-                    self.makeList(self.file_list[7])
-                    self.vbox.show()
-            if event.keyval == Gdk.KEY_9:
-                if fpath.isfile(self.file_list[8]):
-                    self.makeList(self.file_list[8])
-                    self.vbox.show()
-            if event.keyval == Gdk.KEY_0:
-                if fpath.isfile(self.file_list[9]):
-                    self.makeList(self.file_list[9])
-                    self.vbox.show()
-                # volume up
-            if event.keyval == Gdk.KEY_plus:
-                if self.mpv.volume < 205:
-                    self.mpv.volume += 5.0
-                    self.volume = self.mpv.volume
-                print(f"Volume: {self.mpv.volume}")
-                # volume down
-            if event.keyval == Gdk.KEY_minus: 
-                if self.mpv.volume >= 5:
-                    self.mpv.volume -= 5.0
-                    self.volume = self.mpv.volume
-                print(f"Volume: {self.mpv.volume}")
-                # toggle sidebar
-            if event.keyval == Gdk.KEY_s:
-                self.toggleSideBar()            
-            if event.keyval == Gdk.KEY_f or \
-                 (self.fullscreen and event.keyval == Gdk.KEY_Escape):
-                self.toggle_fullscreen()
-                # next
-            if self.is_playing:
-                if event.keyval == Gdk.KEY_Up:
-                    child = self.channelbox.get_child_at_index(self.id + 1)
-                    self.channelbox.select_child(child)
-                    if self.sidebar.is_visible():
-                        self.toggleSideBar()
-                    self.id += 1
-                    self.play_async(self.nameList[self.id], self.urlList[self.id])
-                    # previous
-                if event.keyval == Gdk.KEY_Down:
-                    child = self.channelbox.get_child_at_index(self.id - 1)
-                    self.channelbox.select_child(child)
-                    if self.sidebar.is_visible():
-                        self.toggleSideBar()
-                    self.id -= 1
-                    self.play_async(self.nameList[self.id], self.urlList[self.id]) 
+            if self.channelbox.is_visible():
+                ### lists
+                if event.keyval == Gdk.KEY_1:
+                    if fpath.isfile(self.file_list[0]):
+                        self.makeList(self.file_list[0])
+                        self.vbox.show()
+                if event.keyval == Gdk.KEY_2:
+                    if fpath.isfile(self.file_list[1]):
+                        self.makeList(self.file_list[1])
+                        self.vbox.show()
+                if event.keyval == Gdk.KEY_3:
+                    if fpath.isfile(self.file_list[2]):
+                        self.makeList(self.file_list[2])
+                        self.vbox.show()
+                if event.keyval == Gdk.KEY_4:
+                    if fpath.isfile(self.file_list[3]):
+                        self.makeList(self.file_list[3])
+                        self.vbox.show()
+                if event.keyval == Gdk.KEY_5:
+                    if fpath.isfile(self.file_list[4]):
+                        self.makeList(self.file_list[4])
+                        self.vbox.show()
+                if event.keyval == Gdk.KEY_6:
+                    if fpath.isfile(self.file_list[5]):
+                        self.makeList(self.file_list[5])
+                        self.vbox.show()
+                if event.keyval == Gdk.KEY_7:
+                    if fpath.isfile(self.file_list[6]):
+                        self.makeList(self.file_list[6])
+                        self.vbox.show()
+                if event.keyval == Gdk.KEY_8:
+                    if fpath.isfile(self.file_list[7]):
+                        self.makeList(self.file_list[7])
+                        self.vbox.show()
+                if event.keyval == Gdk.KEY_9:
+                    if fpath.isfile(self.file_list[8]):
+                        self.makeList(self.file_list[8])
+                        self.vbox.show()
+                if event.keyval == Gdk.KEY_0:
+                    if fpath.isfile(self.file_list[9]):
+                        self.makeList(self.file_list[9])
+                        self.vbox.show()
+                    # toggle sidebar
+                if event.keyval == Gdk.KEY_s:
+                    self.toggleSideBar()  
+            else:
+                    # volume up
+                if event.keyval == Gdk.KEY_plus:
+                    if self.mpv.volume < 205:
+                        self.mpv.volume += 5.0
+                        self.volume = self.mpv.volume
+                    print(f"Volume: {self.mpv.volume}")
+                    # volume down
+                if event.keyval == Gdk.KEY_minus: 
+                    if self.mpv.volume >= 5:
+                        self.mpv.volume -= 5.0
+                        self.volume = self.mpv.volume
+                    print(f"Volume: {self.mpv.volume}")
+                    # toggle sidebar
+                if event.keyval == Gdk.KEY_s:
+                    self.toggleSideBar()            
+                if event.keyval == Gdk.KEY_f or \
+                     (self.fullscreen and event.keyval == Gdk.KEY_Escape):
+                    self.toggle_fullscreen()
+                    # next
+                if self.is_playing:
+                    if event.keyval == Gdk.KEY_Up:
+                        child = self.channelbox.get_child_at_index(self.id + 1)
+                        self.channelbox.select_child(child)
+                        self.id += 1
+                        self.play_async(self.nameList[self.id], self.urlList[self.id])
+                        # previous
+                    if event.keyval == Gdk.KEY_Down:
+                        child = self.channelbox.get_child_at_index(self.id - 1)
+                        self.channelbox.select_child(child)
+                        self.id -= 1
+                        self.play_async(self.nameList[self.id], self.urlList[self.id]) 
                     
     def on_decoration(self, *args):
         self.toggleSideBar()
