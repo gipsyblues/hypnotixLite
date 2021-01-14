@@ -121,6 +121,22 @@ i -> import m3u
             
     def on_key_press_event(self, widget, event):
         if not self.searchbar.has_focus():
+            if event.keyval == Gdk.KEY_d:
+                # titlebar show/hide
+                if self.win.get_decorated():
+                    self.win.set_decorated(False)
+                else:
+                    self.win.set_decorated(True)
+                    
+            if event.keyval == Gdk.KEY_t:
+                # ontop yes/no
+                if self.is_above:
+                    self.win.set_keep_above(False)
+                    self.is_above = False
+                else:
+                    self.win.set_keep_above(True)
+                    self.is_above = True
+            
             if event.keyval == Gdk.KEY_F1:
                 self.showHelp()
             if event.keyval == Gdk.KEY_q:
@@ -226,15 +242,18 @@ i -> import m3u
             #self.vbox.show()
             
     def toggleSideBar(self):
+        left, top = self.win.get_position()
         vbox_width = self.vbox.get_allocated_width ()
         if self.vbox.is_visible():
             w, h = self.win.get_size()
             self.vbox.hide()
             self.win.resize(h * 1.777777778, h)
+            #self.win.move(left + vbox_width, top)
         else:
             w, h = self.win.get_size()
             self.vbox.show()
             self.win.resize(h * 1.777777778 + vbox_width , h)
+            self.win.move(left, top)
             
     def btn_clicked(self, wdg, i):
         self.play_async(self.nameList[i], self.urlList[i])
@@ -252,7 +271,7 @@ i -> import m3u
             self.mpv.stop()
 
         self.mpv = mpv.MPV(volume=str(self.volume), input_cursor=True, hwdec=False, 
-                                input_default_bindings=False, border=False, osd_color='#d3d7cf', 
+                                input_default_bindings=False, border=False, osd_color='#bfddf6', 
                                 osd_blur=2, cursor_autohide=1000, 
                                 input_vo_keyboard=False, osc=False, ontop=True, 
                                 wid=str(self.mpv_player.get_window().get_xid()))
@@ -386,6 +405,7 @@ i -> import m3u
             self.makeList(self.file_list[0])
                 
         self.win.set_keep_above(True)
+        self.is_above = True
         self.win.set_decorated(False)
         self.win.resize(640, 300)
         self.win.move(50, 50)
