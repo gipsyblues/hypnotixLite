@@ -1,7 +1,14 @@
 # hypnotixLite
 Lite Version of hypnotix
 
+__hypnotixLite__
+
 ![screnshot](https://github.com/Axel-Erfurt/hypnotixLite/blob/main/screenshot2.png)
+
+
+__hypnotixLiteS__
+
+![screnshot](https://github.com/Axel-Erfurt/hypnotixLite/blob/main/screenshot_s.png)
 
 ### Requirements
 
