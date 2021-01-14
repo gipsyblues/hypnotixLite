@@ -51,6 +51,8 @@ oder
 - Plus -> lauter
 - Minus -> leiser
 - i -> Import m3u
+- d -> Titelleiste ein/ausblenden
+- t -> Fenster immer oberhalb an/aus
 
 ### Hinweis
 
