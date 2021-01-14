@@ -4,9 +4,10 @@ window {
 entry {
     font-size: 9pt;
     font-weight: bold;
-    background-color: black;
+    background-color: #2e3436;
     color: #ddd;
-    border: 0px;
+    border: 1px solid #555;
+    border-radius: 4px;
 }
 url_label {
   color: red;
