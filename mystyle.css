@@ -1,23 +1,28 @@
-button {
+window {
+    background-color: black;
+}
+entry {
     background-color: black;
     color: #729fcf;
-    font-size: 9pt;
-    text-shadow: #204a87 1px 1px 1px;
-    font-weight: bold;
+    border: 0px;
 }
-button:hover {
+url_label {
+  color: red;
+  background: #8ae234;
+}
+flowbox button {
+    background-color: black;
+    color: #bbb;
+}
+flowbox button:hover {
     background-color: #729fcf;
-    color: #2e3436;
-    font-weight: bold;
-}
-button:active {
-    background-color: yellow;
+    color: #333;
 }
 window {
     background-color: black;
 }
-button:focus {
-    background-color: #729fcf;
-    color: #2e3436;
-    border: 1px solid #bbb;
-}
+flowbox flowboxchild:selected,
+flowbox flowboxchild:selected:focus {
+     border: 2px solid #729fcf;
+     background-color: black;
+ }
