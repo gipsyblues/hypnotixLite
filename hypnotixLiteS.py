@@ -121,51 +121,51 @@ d -> hide/show titlebar
                 self.showHelp()
             # toggle titlebar
             if event.keyval == Gdk.KEY_d:
-                self.toggle_decoration()
+                self.on_decoration()
             if event.keyval == Gdk.KEY_q:
                 Gtk.main_quit()
             if event.keyval == Gdk.KEY_i:            
                 self.import_playlist()
             ### lists
             if event.keyval == Gdk.KEY_1:
-                if fpath.isfile("mychannels1.txt"):
-                    self.makeList(self.list_1)
+                if fpath.isfile(self.file_list[0]):
+                    self.makeList(self.file_list[0])
                     self.vbox.show()
             if event.keyval == Gdk.KEY_2:
-                if fpath.isfile("mychannels2.txt"):
-                    self.makeList(self.list_2)
+                if fpath.isfile(self.file_list[1]):
+                    self.makeList(self.file_list[1])
                     self.vbox.show()
             if event.keyval == Gdk.KEY_3:
-                if fpath.isfile("mychannels3.txt"):
-                    self.makeList(self.list_3)
+                if fpath.isfile(self.file_list[2]):
+                    self.makeList(self.file_list[2])
                     self.vbox.show()
             if event.keyval == Gdk.KEY_4:
-                if fpath.isfile("mychannels4.txt"):
-                    self.makeList(self.list_4)
+                if fpath.isfile(self.file_list[3]):
+                    self.makeList(self.file_list[3])
                     self.vbox.show()
             if event.keyval == Gdk.KEY_5:
-                if fpath.isfile("mychannels5.txt"):
-                    self.makeList(self.list_5)
+                if fpath.isfile(self.file_list[4]):
+                    self.makeList(self.file_list[4])
                     self.vbox.show()
             if event.keyval == Gdk.KEY_6:
-                if fpath.isfile("mychannels6.txt"):
-                    self.makeList(self.list_6)
+                if fpath.isfile(self.file_list[5]):
+                    self.makeList(self.file_list[5])
                     self.vbox.show()
             if event.keyval == Gdk.KEY_7:
-                if fpath.isfile("mychannels7.txt"):
-                    self.makeList(self.list_7)
+                if fpath.isfile(self.file_list[6]):
+                    self.makeList(self.file_list[6])
                     self.vbox.show()
             if event.keyval == Gdk.KEY_8:
-                if fpath.isfile("mychannels8.txt"):
-                    self.makeList(self.list_8)
+                if fpath.isfile(self.file_list[7]):
+                    self.makeList(self.file_list[7])
                     self.vbox.show()
             if event.keyval == Gdk.KEY_9:
-                if fpath.isfile("mychannels9.txt"):
-                    self.makeList(self.list_9)
+                if fpath.isfile(self.file_list[8]):
+                    self.makeList(self.file_list[8])
                     self.vbox.show()
             if event.keyval == Gdk.KEY_0:
-                if fpath.isfile("mychannels9.txt"):
-                    self.makeList(self.list_10)
+                if fpath.isfile(self.file_list[9]):
+                    self.makeList(self.file_list[9])
                     self.vbox.show()
                 # volume up
             if event.keyval == Gdk.KEY_plus:
@@ -355,16 +355,11 @@ d -> hide/show titlebar
             
         
     def main(self, argv):
-        self.list_1 = "mychannels1.txt"
-        self.list_2 = "mychannels2.txt"
-        self.list_3 = "mychannels3.txt"
-        self.list_4 = "mychannels4.txt"
-        self.list_5 = "mychannels5.txt"
-        self.list_6 = "mychannels6.txt"
-        self.list_7 = "mychannels7.txt"
-        self.list_8 = "mychannels8.txt"
-        self.list_9 = "mychannels9.txt"
-        self.list_10 = "mychannels10.txt"
+       
+        self.file_list = []
+        for x in range(10):
+            self.file_list.append(f"mychannels{x + 1}.txt")
+        
         self.urlList = []
         self.nameList = []
         self.volume = 90
@@ -405,7 +400,7 @@ d -> hide/show titlebar
         self.mpv_player.connect("draw", self.on_mpv_player_draw)
         
         if fpath.isfile("mychannels1.txt"):
-            self.makeList(self.list_1)
+            self.makeList(self.file_list[0])
                 
         self.win.set_keep_above(True)
         self.win.set_decorated(True)
@@ -419,3 +414,4 @@ d -> hide/show titlebar
 if __name__ == "__main__":
     w = MyWindow()
     w.main(sys.argv)
+                            
