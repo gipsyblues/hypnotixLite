@@ -59,6 +59,8 @@ or
 - Key Plus -> more Volume
 - Key Minus -> less Volume
 - i -> import m3u
+- d -> show/hide titlebar
+- t -> set window ontop / not ontop
 
 ### m3u to mychannels
 
